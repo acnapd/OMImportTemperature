@@ -42,10 +42,9 @@ def territory_id_tz():
         r.raise_for_status()
         if r.status_code == 200:
             pass
-        else:
-            print("Ошибка обращения к API ЛЭРС УЧЁТ " + r.status_code)
     except:
-        print("Нет ответа от API ЛЭРС УЧЁТ")
+        print("Ошибка обращения к API ЛЭРС УЧЁТ " + str(r.status_code))
+        raise SystemExit
     data = r.json()
     for i in data:
         t_id = i.get('id')
@@ -63,10 +62,9 @@ def city_latlon():
         r.raise_for_status()
         if r.status_code == 200:
             pass
-        else:
-            print("Ошибка обращения к API open-meteo.com " + r.status_code)
     except:
-        print("Нет ответа от API open-meteo.com")
+        print("Ошибка обращения к API open-meteo.com " + str(r.status_code))
+        raise SystemExit
     data = r.json()
     global LAT
     global LON
@@ -83,10 +81,9 @@ def request():
         r.raise_for_status()
         if r.status_code == 200:
             pass
-        else:
-            print("Ошибка обращения к API open-meteo.com " + r.status_code)
     except:
-        print("Нет ответа от API open-meteo.com")        
+        print("Ошибка обращения к API open-meteo.com " + str(r.status_code))
+        raise SystemExit     
     return r.json()
 
 
@@ -126,13 +123,12 @@ def main():
     print("Импортируются данные с " + datetime.strptime(START_DAY, '%Y-%m-%d').strftime('%d.%m.%Y') + " по " + datetime.strptime(END_DAY, '%Y-%m-%d').strftime('%d.%m.%Y'))
     try:
         r = requests.put(url, data=json.dumps(json_data), headers={"Authorization": API_KEY_LERS, "Content-type": 'application/json'}, timeout=10)
-        time.sleep(10)
         r.raise_for_status()
+        time.sleep(10)
         if r.status_code == 200:
             print("Импорт завершён")
-        else:
-            print("Ошибка обращения к API ЛЭРС УЧЁТ " + r.status_code)
     except:
-        print("Нет ответа от API ЛЭРС УЧЁТ")
+#        print("Ошибка обращения к API ЛЭРС УЧЁТ " + str(r.status_code))
+        raise SystemExit
 if __name__ == "__main__":
     main()
