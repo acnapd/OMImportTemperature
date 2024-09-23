@@ -24,7 +24,7 @@ IMPORT_START = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d') if ar
 IMPORT_DAYS = args.importDays if args.importStart==None else None
 
 START_DAY = args.importStart if args.importStart!=None else (datetime.today() - timedelta(days=int(IMPORT_DAYS))).strftime('%Y-%m-%d')
-END_DAY = (datetime.today()).strftime('%Y-%m-%d')
+END_DAY = (datetime.today() - timedelta(days=int(1))).strftime('%Y-%m-%d')
 
 LAT = ""
 LON = ""
@@ -99,7 +99,7 @@ def main():
     days = list(dict.fromkeys(days))
     wrong_days = len(days) - days_amount
     global END_DAY
-    END_DAY = (datetime.today() - timedelta(days=wrong_days)).strftime('%Y-%m-%d')
+    END_DAY = (datetime.today() - timedelta(days=int(1)) - timedelta(days=wrong_days)).strftime('%Y-%m-%d')
     days = days[: len(days) - wrong_days]
     days = [s + "T12:00:00." + TZ2 + "Z" for s in days]
     day_temp = [(temperatures[i:i + 24]) for i in range(0, len(temperatures), 24)]
@@ -130,7 +130,7 @@ def main():
         if r.status_code == 200:
             print("Импорт завершён")
     except:
-#        print("Ошибка обращения к API ЛЭРС УЧЁТ " + str(r.status_code))
+        print("Ошибка обращения к API ЛЭРС УЧЁТ " + str(r.status_code))
         raise SystemExit
 if __name__ == "__main__":
     main()
