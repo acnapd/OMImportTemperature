@@ -41,7 +41,7 @@ def territory_id_tz():
         r = requests.get(url, headers={"Authorization": API_KEY_LERS})
         r.raise_for_status()
         if r.status_code == 200:
-            print()
+            pass
         else:
             print("Ошибка обращения к API ЛЭРС УЧЁТ " + r.status_code)
     except:
@@ -62,7 +62,7 @@ def city_latlon():
         r = requests.get(url)
         r.raise_for_status()
         if r.status_code == 200:
-            print()
+            pass
         else:
             print("Ошибка обращения к API open-meteo.com " + r.status_code)
     except:
@@ -82,7 +82,7 @@ def request():
         r = requests.get(url)
         r.raise_for_status()
         if r.status_code == 200:
-            print()
+            pass
         else:
             print("Ошибка обращения к API open-meteo.com " + r.status_code)
     except:
